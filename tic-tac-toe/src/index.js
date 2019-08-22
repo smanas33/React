@@ -47,6 +47,7 @@ class Board extends React.Component {
 
 class Game extends React.Component {
   constructor(props) {
+<<<<<<< HEAD
     super(props);
     this.state = {
       history: [
@@ -83,10 +84,36 @@ class Game extends React.Component {
       stepNumber: step,
       xIsNext: (step % 2) === 0
     });
+=======
+	super(props);
+	this.state = {
+		history: [{
+			squares:Array(9).fill(null)
+		}],
+		xIsNext: true
+	};
+  }
+
+  handleClick(i) {
+	const history = this.state.history;
+        const current = history[history.length - 1];
+    	const squares = current.squares.slice();
+	if (calculateWinner(squares) || squares[i]) {
+		return;
+	}
+	squares[i] = this.state.xIsNext ? 'X' : 'O';
+	this.setState({
+      		history: history.concat([{
+        		squares: squares
+      		}]),
+      		xIsNext: !this.state.xIsNext,
+    	});
+>>>>>>> 4a0405294c8cc8f233c0682511b578373c88907b
   }
 
   render() {
     const history = this.state.history;
+<<<<<<< HEAD
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
@@ -107,14 +134,43 @@ class Game extends React.Component {
     } else {
       status = "Next player: " + (this.state.xIsNext ? "X" : "O");
     }
+=======
+    const current = history[history.length - 1];
+    const winner = calculateWinner(current.squares);
+
+    const moves = history.map((step, move) => {
+	const desc = move ?
+	    'Go to move #' + move :
+	    'Go to game start';
+	return (
+	    <li>
+		<button onClick={() => this.jumpTo(move)}>{desc}</button>
+	    </li>
+	);
+    });
+    
+    let status;
+    if(winner) {
+	status = 'Winner: ' + winner;
+    } else {
+	status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+    } 
+>>>>>>> 4a0405294c8cc8f233c0682511b578373c88907b
 
     return (
       <div className="game">
         <div className="game-board">
+<<<<<<< HEAD
           <Board
             squares={current.squares}
             onClick={i => this.handleClick(i)}
           />
+=======
+          <Board 
+	  	squares={current.squares}
+		onClick={(i) => this.handleClick(i)}
+	  />
+>>>>>>> 4a0405294c8cc8f233c0682511b578373c88907b
         </div>
         <div className="game-info">
           <div>{status}</div>
